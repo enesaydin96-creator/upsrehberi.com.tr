@@ -933,3 +933,11 @@ details[open]::details-content{height:auto}
 .s3.is-active .rk-st .ok,.s3.is-active .rk-st i{animation:hideok 3.4s ease 3.3s}
 .rk-st{flex-basis:100%;min-height:18px}
 .rk-st .bad{left:0;right:auto;top:0}
+/* karşılaştır: daha görünür */
+.cmp-hint{display:flex;align-items:center;gap:8px;margin-top:4px;font-size:13.5px;color:var(--blue);font-weight:500}
+.cmp-hint svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.cmp{margin-top:12px;padding:7px 12px;border:1px solid rgba(29,113,184,.45);border-radius:2px;color:var(--blue);font-weight:500;font-size:14px;background:#fff;transition:background var(--d-fast),color var(--d-fast),border-color var(--d-fast)}
+.cmp:hover{background:rgba(29,113,184,.07);border-color:var(--blue)}
+.cmp:has(input:checked){background:var(--blue);border-color:var(--blue);color:#fff}
+.cmp:has(input:checked) input{accent-color:#fff}
+.cmpbar{box-shadow:0 -10px 30px rgba(14,34,54,.18)}
