@@ -1,0 +1,31 @@
+name: Zip dosyalarini ac
+on:
+  push:
+    paths: ['*.zip', '.github/workflows/unzip.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  unzip:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Ac ve kopyala
+        run: |
+          shopt -s nullglob dotglob
+          for z in *.zip; do
+            rm -rf /tmp/x && mkdir -p /tmp/x
+            unzip -o -q "$z" -d /tmp/x
+            rm -rf /tmp/x/__MACOSX
+            items=(/tmp/x/*)
+            if [ ${#items[@]} -eq 1 ] && [ -d "${items[0]}" ]; then src="${items[0]}/"; else src="/tmp/x/"; fi
+            rsync -a --exclude '.DS_Store' "$src" ./
+            git rm -q "$z"
+          done
+          find . -name '.DS_Store' -not -path './.git/*' -delete
+          touch .nojekyll
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Zip icerikleri acildi" || echo "degisiklik yok"
+          git push
